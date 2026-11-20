@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      DB_PATH: /data/app.db
+    volumes:
+      - db-data:/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+volumes:
+  db-data:
